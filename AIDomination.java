@@ -2133,7 +2133,6 @@ public class AIDomination extends AISubmissive {
      */
     private void searchTargets(Map<Country, AttackTarget> targets, Country startCountry, int startArmies, final int start, int totalStartingPoints, int extra, boolean attack, final Set<Country> wayPoints, final Set<Country> exclusions, GameState gameState) {
         PriorityQueue<AttackTarget> remaining = new PriorityQueue<AttackTarget>(11, new Comparator<AttackTarget>() {
-            @Override
             public int compare1(){
                 AttackTarget o1;
                 AttackTarget o2;
@@ -2155,6 +2154,7 @@ public class AIDomination extends AISubmissive {
                         }
                         return -1;
             }
+            @Override
             public int compare(AttackTarget o1, AttackTarget o2) {
                 int diff = o2.routeRemaining[start] - o1.routeRemaining[start];
 
