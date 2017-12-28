@@ -2107,9 +2107,49 @@ public class AIDomination extends AISubmissive {
      * find the possible elimination targets in priority order
      * will filter out attacks that seem too costly or if the target has no cards
      */
+    public void Targets2(){
+        GameState gameState;
+        int i;
+        Player player2 = ps.p;
+        PlayerState ps = gameState.orderedPlayers.get(i);
+        boolean isTarget = gameState.targetPlayers.size() > 1 && gameState.targetPlayers.get(0) == player2;
+            double divisor = 1;
+          int cardCount = player2.getCards().size();
+        boolean attack;
+        if ((!isIncreasingSet() || game.getNewCardState() < gameState.me.defenseValue/8) && (!attack || player2.getTerritoriesOwned().size() > 1) && !game.getCards().isEmpty() && cardCount < 3 && (game.getCardMode()==RiskGame.CARD_ITALIANLIKE_SET||(cardCount+player.getCards().size()<RiskGame.MAX_CARDS))) {
+                divisor+=(.5*Math.max(0, isIncreasingSet()?2:4 - cardCount));
+            }
+
+            if (!isTarget && ps.defenseValue > gameState.me.armies/divisor + player.getExtraArmies()) {
+             
+            }
+          return null;  
+    }
+    public void Targets1(){
+       GameState gameState;
+       Map<Country, AttackTarget> targets;
+        int i;
+        PlayerState ps = gameState.orderedPlayers.get(i);  
+        et.ps = ps;
+        Player player2 = ps.p;
+     
+        List<Country> targetCountries = player2.getTerritoriesOwned();
+            EliminationTarget et = new EliminationTarget();
+        int j;
+            Country target = targetCountries.get(j);
+                AttackTarget attackTarget = targets.get(target);
+        boolean attack;
+        int remaining;
+                if (attackTarget == null
+                        || attackTarget.remaining == Integer.MIN_VALUE
+                        || (!attack && -attackTarget.remaining > remaining)) {
+               
+                            }
+                et.attackTargets.add(attackTarget);
+    }
     private List<EliminationTarget> findEliminationTargets(Map<Country, AttackTarget> targets, GameState gameState,
                                                            boolean attack, int remaining) {
-        List<EliminationTarget> toEliminate = new ArrayList<EliminationTarget>();
+        List<EliminationTarget> toEliminate = new ArrayList<>();
         for (int i = 0; i < gameState.orderedPlayers.size(); i++) {
             PlayerState ps = gameState.orderedPlayers.get(i);
             Player player2 = ps.p;
@@ -2121,27 +2161,16 @@ public class AIDomination extends AISubmissive {
             boolean isTarget = gameState.targetPlayers.size() > 1 && gameState.targetPlayers.get(0) == player2;
             double divisor = 1;
             int cardCount = player2.getCards().size();
-            if ((!isIncreasingSet() || game.getNewCardState() < gameState.me.defenseValue/8) && (!attack || player2.getTerritoriesOwned().size() > 1) && !game.getCards().isEmpty() && cardCount < 3 && (game.getCardMode()==RiskGame.CARD_ITALIANLIKE_SET||(cardCount+player.getCards().size()<RiskGame.MAX_CARDS))) {
-                divisor+=(.5*Math.max(0, isIncreasingSet()?2:4 - cardCount));
-            }
-
-            if (!isTarget && ps.defenseValue > gameState.me.armies/divisor + player.getExtraArmies()) {
-                continue;
-            }
+            Targets2();
+            
 
             List<Country> targetCountries = player2.getTerritoriesOwned();
             EliminationTarget et = new EliminationTarget();
             et.ps = ps;
             //check for sufficient troops on critical path
             for (int j = 0; j < targetCountries.size(); j++) {
-                Country target = targetCountries.get(j);
-                AttackTarget attackTarget = targets.get(target);
-                if (attackTarget == null
-                        || attackTarget.remaining == Integer.MIN_VALUE
-                        || (!attack && -attackTarget.remaining > remaining)) {
-                    continue;
-                }
-                et.attackTargets.add(attackTarget);
+           Targets1();
+               
             }
             et.target = isTarget;
             et.allOrNone = true;
