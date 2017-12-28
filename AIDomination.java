@@ -2391,13 +2391,19 @@ public class AIDomination extends AISubmissive {
         if (specialCase && ((breaking != null && breaking.getOwner() != null) || gameState.commonThreat != null)) {
             needed/=2;
         }
+        
+        return getBattleWon(gameState);
+    }
+    protected String getBattleWon0(){
+         GameState gameState = getGameState(player, false);
+        boolean specialCase = false;
+        int needed = -game.getAttacker().getArmies();
         if (!specialCase && ownsNeighbours(game.getAttacker())) {
             return "move " + Math.max(game.getMustMove(), game.getAttacker().getArmies() - getMinPlacement());
         }
         if (!specialCase && game.getMaxDefendDice() == 3 && !ownsNeighbours(game.getAttacker()) && gameState.me.playerValue > gameState.orderedPlayers.get(0).playerValue) {
             needed += game.getMaxDefendDice(); //make getting cards more difficult
         }
-        return getBattleWon(gameState);
     }
     protected String getBattleWon(GameState gameState) {
         if (ownsNeighbours(game.getDefender())) {
@@ -2422,6 +2428,7 @@ public class AIDomination extends AISubmissive {
            
         }
          getBattleWon1();
+         getBattleWon0();
          getBattleWon3();
         
         return "move " + Math.max(Math.min(-needed, game.getAttacker().getArmies() - Math.max(getMinPlacement(), forwardMin)), game.getMustMove());
