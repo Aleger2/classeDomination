@@ -755,7 +755,7 @@ transient - A keyword in the Java programming language that indicates that a fie
 			}
             return 0;
         }
-	public int getTradeAbsValue(String h1, String h2, String h3,int cardMode) {
+	public int getTradeAbsValue(String l1, String l2, String l3,int cardMode) {
 		int armies=0;
 
 		// we shift all wildcards to the front
@@ -2377,22 +2377,7 @@ transient - A keyword in the Java programming language that indicates that a fie
 
 	}
 
-	private Continent getMissionContinentfromString(String a) {
-
-		if (a.equals("*")) {
-			return ANY_CONTINENT;
-		}
-		else {
-			int s = Integer.parseInt(a);
-			if (s==0) {
-				return null;
-			}
-			else {
-				return Continents[ s-1 ];
-			}
-
-		}
-	}
+	
 
 
 	/**
@@ -2401,7 +2386,7 @@ transient - A keyword in the Java programming language that indicates that a fie
 	 * @return boolean Return trues if missions are supported
 	 * @throws Exception The file cannot be found
 	 */
-        public boolean setCardsfile2(){
+        private boolean setCardsfile2(){
             String input;
             String mode;
             if (mode.equals("newsection")) {
@@ -2421,7 +2406,7 @@ transient - A keyword in the Java programming language that indicates that a fie
 				}
             return false;
         }
-        public boolean setCardsfile1(){
+        private boolean setCardsfile1(){
             String input;
             if (input.charAt(0)=='[' && input.charAt( input.length()-1 )==']') {
                 System.out.print("");
@@ -2430,7 +2415,7 @@ transient - A keyword in the Java programming language that indicates that a fie
 }
             return false;
         }
-	public boolean setCardsfile(String f) throws Exception {
+	private boolean setCardsfile(String f) throws Exception {
 
 
 		
@@ -3137,14 +3122,14 @@ System.out.print(str+"]\n");
 	 * copy and paste from
 	 * @see java.awt.Color#HSBtoRGB(float, float, float)
 	 */
-	public static int HSBtoRGB(float hue, float saturation, float brightness) {
+	public static int HSBtoRGB(float hue, int saturation, float brightness) {
 		int r = 0, g = 0, b = 0;
-		if (saturation == 0.0) {
+		if (saturation == 0) {
 			r = g = b = (int) (brightness * 255.0f + 0.5f);
 		} else {
 			
 			
-			
+			System.out.print("");
 			
 		}
 		return 0xff000000 | (r << 16) | (g << 8) | (b << 0);
