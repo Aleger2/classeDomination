@@ -755,7 +755,7 @@ transient - A keyword in the Java programming language that indicates that a fie
 			}
             return 0;
         }
-	public int getTradeAbsValue(String l1, String l2, String l3,int cardMode) {
+	public int getTradeAbsValue(int cardMode) {
 		int armies=0;
 
 		// we shift all wildcards to the front
